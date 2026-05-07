@@ -56,7 +56,9 @@ jobs:
 
       - name: k8s manifest update
         run: |
-          sed -i "s@image: .*@image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}@g" ./fastapi/fastapi.yml
+          sed -i "s@ \
+          image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:.*@ \
+          image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}@g" ./fastapi/fastapi.yml
 
       - name: Commit and Push
         run: |
